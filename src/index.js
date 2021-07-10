@@ -8,15 +8,35 @@ import {createStore} from 'redux';
 import {Provider} from "react-redux";
 
 const initialState = {
-    posts:[]
+    posts:[],
+    users:[],
+    comments:[],
+
+    albums:[],
+    photos:[],
+    todos:[]
 }
 const counterReducer = (state = initialState, action)=>
 {
 
     switch (action.type) {
-
         case 'SET_POSTS': {
             return {...state, posts: action.payload}
+        }
+        case 'SET_USERS': {
+            return {...state, users: action.payload}
+        }
+        case 'SET_COMMENTS': {
+            return {...state, comments: action.payload}
+        }
+        case 'SET_ALBUMS': {
+            return {...state, albums: action.payload}
+        }
+        case 'SET_PHOTOS': {
+            return {...state, photos: action.payload}
+        }
+        case 'SET_TODOS': {
+            return {...state, todos: action.payload}
         }
         default: return state;
     }
