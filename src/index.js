@@ -8,7 +8,8 @@ import {createStore} from 'redux';
 import {Provider} from "react-redux";
 
 const initialState = {
-    counterValue: 0
+    counterValue: 0,
+    posts:[]
 }
 const counterReducer = (state = initialState, action)=>
 {
@@ -26,6 +27,9 @@ const counterReducer = (state = initialState, action)=>
         }
         case 'INC_CASTOM': {
             return {...state, counterValue: state.counterValue + action.payload}
+        }
+        case 'SET_POSTS': {
+            return {...state, posts: action.payload}
         }
         default: return state;
     }
