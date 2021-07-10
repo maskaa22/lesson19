@@ -1,70 +1,38 @@
-import {useSelector, useDispatch} from "react-redux";
+import {BrowserRouter as Router,
+        Switch,
+        Route,
+        Link
+} from 'react-router-dom';
 import './App.css';
-import {useEffect, useState} from "react";
+import Users from "./componenets/users/Users";
+import Posts from "./componenets/posts/Posts";
+import Comments from "./componenets/comments/Comments";
 
-const SomeNestedChildComponent =()=> {
-    const counter = useSelector(({counterValue})=>counterValue);
-    const posts = useSelector(({posts})=>posts);
-    return (
-        <div>
-            <h1>{counter}</h1>
-            {
-                posts.map(post=>{
-                    return (
-                    <div key={post.id}>
-                        <p>{post.title}</p>
-                        <p>{post.body}</p>
-                    </div>
-                )})
-            }
-        </div>
-    )
-}
-const SomeChildComponent =()=>{
-    return (<SomeNestedChildComponent/>)
-};
+
+
 function App()
 {
-    const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
-const fetchPosts = async ()=> {
-    const data = await ((await (fetch('https://jsonplaceholder.typicode.com/posts'))).json())
-    console.log(data);
-    dispatch({
-        type:'SET_POSTS',
-        payload: data
-    })
-}
-
-    useEffect(()=>{
-        fetchPosts()
-    },[])
 
   return (
     <div>
+        <Router>
+            <div>
+                <Link to={'/posts'}>Post page</Link>
+            </div>
+            <div>
+                <Link to={'/users'}>Users page</Link>
+            </div>
+            <div>
+                <Link to={'/comments'}>Comments page</Link>
+            </div>
 
-        <button onClick={()=>{
-            dispatch({type:'INC'});
-        }}>inc</button>
+            <Switch>
+                <Route path={'/users'} component={Users}/>
+                <Route path={'/posts'} component={Posts}/>
+                <Route path={'/comments'} component={Comments}/>
+            </Switch>
+        </Router>
 
-        <button onClick={()=>{
-            dispatch({type:'DEC'});
-        }}>dec</button>
-
-        <button onClick={()=>{
-            dispatch({type:'RESET'});
-        }}>res</button>
-
-
-        <input id="elem" type="text" onChange={e=>setTitle(e.target.value)}/>
-        <button onClick={()=>{
-            dispatch({
-                type:'INC_CASTOM',
-                payload: Number(title)
-            });
-        }}>inc_cast</button>
-
-      <SomeChildComponent/>
     </div>
   );
 }

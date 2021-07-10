@@ -1,24 +1,24 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getUsers} from "../../servises/UsersApi";
-import User from "../user/User";
+import {getPosts} from "../../servises/PostApi";
+import Post from "../post/Post";
 
-export default function Users ()
+export default function Posts ()
 {
     const dispatch = useDispatch();
     useEffect(()=>{
-        getUsers().then(value => {
+        getPosts().then(value => {
             dispatch({
-                type:'SET_USERS',
+                type:'SET_POSTS',
                 payload: value.data
             })
         })
     },[])
-    const users = useSelector(({users})=>users);
+    const posts = useSelector(({posts})=>posts);
     return(
         <div>
             {
-                users.map(val=><User key={val.id} item={val}/>)
+                posts.map(post=> <Post key={post.id} item={post}/>)
             }
         </div>
     );
