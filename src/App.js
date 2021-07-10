@@ -29,13 +29,11 @@ function App()
     const [title, setTitle] = useState('');
 const fetchPosts = async ()=> {
     const data = await ((await (fetch('https://jsonplaceholder.typicode.com/posts'))).json())
-    console.log(data);
     dispatch({
         type:'SET_POSTS',
         payload: data
     })
 }
-
     useEffect(()=>{
         fetchPosts()
     },[])
