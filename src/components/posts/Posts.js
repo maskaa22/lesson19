@@ -1,20 +1,26 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getPosts} from "../../servises/PostApi";
+import Post from "../post/Post";
 
 export default function Posts ()
 {
     const dispatch = useDispatch();
-    useEffect(()=>{
-        getPosts().then(value => {
-            dispatch({
-                type:'SET_POSTS',
-                payload: value.data
-            })
+    const fetchPosts = async ()=> {
+        const data = await ((await (fetch('https://jsonplaceholder.typicode.com/posts'))).json())
+        dispatch({
+            type:'SET_POSTS',
+            payload: data
         })
+    }
+    useEffect(()=>{
+        fetchPosts()
     },[])
+    const posts = useSelector(({posts})=>posts);
     return(
         <div>
+            {
+                posts.map(post=> <Post key={post.id} item={post}/>)
+            }
 
         </div>
     );
