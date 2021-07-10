@@ -6,41 +6,41 @@ import reportWebVitals from './reportWebVitals';
 
 import {createStore} from 'redux';
 import {Provider} from "react-redux";
-//
-// const initialState = {
-//     counterValue: 0,
-//     posts:[]
-// }
-// const counterReducer = (state = initialState, action)=>
-// {
-//
-//     switch (action.type) {
-//
-//         case 'INC': {
-//             return {...state, counterValue: state.counterValue+1}
-//         }
-//         case 'DEC': {
-//             return {...state, counterValue: state.counterValue-1}
-//         }
-//         case 'RESET': {
-//             return {...state, counterValue: 0}
-//         }
-//         case 'INC_CASTOM': {
-//             return {...state, counterValue: state.counterValue + action.payload}
-//         }
-//         case 'SET_POSTS': {
-//             return {...state, posts: action.payload}
-//         }
-//         default: return state;
-//     }
-// }
-//
-// const store = createStore(counterReducer);
+
+const initialState = {
+    counterValue: 0,
+    posts:[]
+}
+const counterReducer = (state = initialState, action)=>
+{
+
+    switch (action.type) {
+
+        // case 'INC': {
+        //     return {...state, counterValue: state.counterValue+1}
+        // }
+        // case 'DEC': {
+        //     return {...state, counterValue: state.counterValue-1}
+        // }
+        // case 'RESET': {
+        //     return {...state, counterValue: 0}
+        // }
+        // case 'INC_CASTOM': {
+        //     return {...state, counterValue: state.counterValue + action.payload}
+        // }
+        case 'SET_POSTS': {
+            return {...state, posts: action.payload}
+        }
+        default: return state;
+    }
+}
+
+const store = createStore(counterReducer);
 
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider >
+      <Provider store={store}>
           <App/>
       </Provider>
   </React.StrictMode>,
